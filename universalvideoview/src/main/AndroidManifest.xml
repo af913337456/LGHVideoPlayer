@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.universalvideoview">
+
+    <application
+        android:theme="@style/AppTheme"
+        android:allowBackup="true">
+
+    </application>
+
+</manifest>
