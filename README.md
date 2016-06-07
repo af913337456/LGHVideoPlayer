@@ -29,6 +29,4 @@ new VideoViewHelper
     
 ```
 
-![Sample Screenshot 1](./screenshot/screen1.png)
-![Sample Screenshot 2](./screenshot/screen2.png)
 
