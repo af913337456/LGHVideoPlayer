@@ -27,6 +27,40 @@ new VideoViewHelper
     .withSecondFullWay(true)
     .init();
     
+
+@Override
+protected void onPause() {
+    super.onPause();
+    if (play1!= null) {
+        play1.pause();
+    }
+}
+
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+@Override
+protected void onStop() {
+    super.onStop();
+    // Dismiss the presentation when the activity is not visible.
+
+}
+
+/** 释放内存 */
+@Override
+protected void onDestroy() {
+    super.onDestroy();
+    if (play1 != null) {
+        play1.destroy();
+    }
+}
+
+@Override
+protected void onResume() {
+    super.onResume();
+    if (play1 != null) {
+        play1.resume();
+    }
+}
+    
 ```
 
 
