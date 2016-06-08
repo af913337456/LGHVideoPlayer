@@ -33,10 +33,11 @@ public class VideoViewHelper{
     private UniversalVideoView mVideoView;
     private View view,brightView,voiceView;
 
+    private ViewGroup.LayoutParams layoutParams;
+
     private boolean isChoiseSecondFullWay = false; /** 第二种全屏方式 */
     private UniversalMediaController MediaController;
     private Activity activity;
-    private int cachedHeight;
     private String url;
     private int screenWidthPixels; /** 屏幕宽度像素 */
 
@@ -64,27 +65,7 @@ public class VideoViewHelper{
 
     }
 
-    /**
-     * 置视频区域大小
-     */
-    private void setVideoAreaSize() {
-
-        container.post(new Runnable() {
-            @Override
-            public void run() {
-                int width = container.getWidth();
-                cachedHeight = (int) (width * 405f / 720f);
-                ViewGroup.LayoutParams videoLayoutParams = container.getLayoutParams();
-                videoLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                videoLayoutParams.height = cachedHeight;
-                container.setLayoutParams(videoLayoutParams);
-                mVideoView.setVideoPath(url);
-                mVideoView.requestFocus();
-            }
-        });
-    }
-
-    public void init(){
+    public VideoViewHelper init(){
         view =  LayoutInflater.from(activity).inflate(R.layout.video_layout,container,false);
 
         brightView = view.findViewById(R.id.app_video_brightness_box);
@@ -167,7 +148,16 @@ public class VideoViewHelper{
                 mFilter
         );
 
+        if(layoutParams!=null){
+            container.setLayoutParams(layoutParams);
+        }
         container.addView(view);
+        return this;
+    }
+
+    public VideoViewHelper withLayoutParam(ViewGroup.LayoutParams layoutParams){
+        this.layoutParams = layoutParams;
+        return this;
     }
 
 
