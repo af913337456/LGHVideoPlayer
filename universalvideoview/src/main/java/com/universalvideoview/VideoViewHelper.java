@@ -232,28 +232,34 @@ public class VideoViewHelper{
          */
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            Log.d("zzzzz"," onScroll");
-            float mOldX = e1.getX(), mOldY = e1.getY();
-            float deltaY = mOldY - e2.getY();
-            float deltaX = mOldX - e2.getX();
-            if (firstTouch) {
-                toSeek = Math.abs(distanceX) >= Math.abs(distanceY);
-                volumeControl=mOldX > screenWidthPixels * 0.5f;
-                firstTouch = false;
-            }
+            
+            /** 锁屏状态 声音和亮度 也不可开 */
+            if(!MediaController.isLocked){
+                Log.d("zzzzz"," onScroll");
+                float mOldX = e1.getX(), mOldY = e1.getY();
+                float deltaY = mOldY - e2.getY();
+                float deltaX = mOldX - e2.getX();
+                if (firstTouch) {
+                    toSeek = Math.abs(distanceX) >= Math.abs(distanceY);
+                    volumeControl=mOldX > screenWidthPixels * 0.5f;
+                    firstTouch = false;
+                }
 
-            if (toSeek) {
+                if (toSeek) {
 
-            } else {
-                float percent = deltaY / mVideoView.getHeight();
-                if (volumeControl) {
-                    onVolumeSlide(percent);
                 } else {
-                    onBrightnessSlide(percent);
+                    float percent = deltaY / mVideoView.getHeight();
+                    if (volumeControl) {
+                        onVolumeSlide(percent);
+                    } else {
+                        onBrightnessSlide(percent);
+                    }
                 }
             }
+            
             return super.onScroll(e1, e2, distanceX, distanceY);
         }
+
 
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
